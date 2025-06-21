@@ -57,7 +57,7 @@ mrb_esp32_i2c_send(mrb_state *mrb, mrb_value self) {
       i2c_master_write(cmd, RSTRING_PTR(data), RSTRING_LEN(data), 1);
     }
     i2c_master_stop(cmd);
-    err = i2c_master_cmd_begin(mrb_fixnum(port), cmd, 1000 / portTICK_RATE_MS);
+    err = i2c_master_cmd_begin(mrb_fixnum(port), cmd, 1000 / portTICK_PERIOD_MS);
     i2c_cmd_link_delete(cmd);
 
     return mrb_fixnum_value(err);
