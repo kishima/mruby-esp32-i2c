@@ -4,6 +4,8 @@
 #include <mruby/value.h>
 #include <mruby/variable.h>
 
+#include "esp_log.h"
+#define TAG "i2c"
 #include "driver/i2c.h"
 
 #define E_I2C_ERROR (mrb_class_get(mrb, "I2CError"))
@@ -11,6 +13,7 @@
 static mrb_value
 mrb_esp32_i2c_init(mrb_state *mrb, mrb_value self)
 {
+  ESP_LOGI(TAG, "mrb_esp32_i2c_init");
   mrb_int mode, port, scl, sda, freq;
   mrb_bool scl_pullup, sda_pullup;
   i2c_config_t conf;
@@ -101,6 +104,7 @@ mrb_esp32_i2c_recv(mrb_state *mrb, mrb_value self) {
 void
 mrb_mruby_esp32_i2c_gem_init(mrb_state* mrb)
 {
+  ESP_LOGI(TAG, "mrb_mruby_esp32_i2c_gem_init");
   struct RClass *esp32, *i2c, *constants;
 
   esp32 = mrb_define_module(mrb, "ESP32");
@@ -109,7 +113,8 @@ mrb_mruby_esp32_i2c_gem_init(mrb_state* mrb)
   mrb_define_method(mrb, i2c, "_init", mrb_esp32_i2c_init, MRB_ARGS_REQ(7));
   mrb_define_method(mrb, i2c, "deinit", mrb_esp32_i2c_deinit, MRB_ARGS_NONE());
   mrb_define_method(mrb, i2c, "send", mrb_esp32_i2c_send, MRB_ARGS_REQ(2));
-  mrb_define_method(mrb, i2c, "recv", mrb_esp32_i2c_recv, MRB_ARGS_REQ(2));
+  mrb_define_method(mrb, i2c, "write", mrb_esp32_i2c_send, MRB_ARGS_REQ(2));
+  mrb_define_method(mrb, i2c, "read", mrb_esp32_i2c_recv, MRB_ARGS_REQ(2));
 
   constants = mrb_define_module_under(mrb, i2c, "Constants");
 
