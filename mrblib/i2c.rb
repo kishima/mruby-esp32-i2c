@@ -12,21 +12,16 @@ module ESP32
       # puts "A #{@port}, #{@mode}, #{@scl}, #{@scl_pullup}, #{@sda}, #{@sda_pullup}, #{@freq}"\
     end
 
-    def test(arg)
-      puts "test #{arg}"
-    end
-
     def init(port, options={})
-      puts "init"
       @mode = MASTER
       #SLAVE not supported
       @port = port
       @scl = options[:scl] || SCL0
-      @scl_pullup = options[:scl_pullup] || true
+      @scl_pullup = options[:scl_pullup] || 1
       @sda = options[:sda] || SDA0
-      @sda_pullup = options[:sda_pullup] || true
+      @sda_pullup = options[:sda_pullup] || 1
       @freq = options[:freq] || 100000
-      puts "init #{@port}, #{@mode}, #{@scl}, #{@scl_pullup}, #{@sda}, #{@sda_pullup}, #{@freq}"
+      #puts "init #{@port}, #{@mode}, #{@scl}, #{@scl_pullup}, #{@sda}, #{@sda_pullup}, #{@freq}"
       _init(@port, @mode, @scl, @scl_pullup, @sda, @sda_pullup, @freq)
     end
 

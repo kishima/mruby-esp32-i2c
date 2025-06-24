@@ -111,7 +111,7 @@ mrb_mruby_esp32_i2c_gem_init(mrb_state* mrb)
   mrb_define_method(mrb, i2c, "deinit", mrb_esp32_i2c_deinit, MRB_ARGS_NONE());
   mrb_define_method(mrb, i2c, "send", mrb_esp32_i2c_send, MRB_ARGS_REQ(2));
   mrb_define_method(mrb, i2c, "write", mrb_esp32_i2c_send, MRB_ARGS_REQ(2));
-  mrb_define_method(mrb, i2c, "read", mrb_esp32_i2c_recv, MRB_ARGS_REQ(2));
+  mrb_define_method(mrb, i2c, "read", mrb_esp32_i2c_recv, MRB_ARGS_REQ(3));
 
   constants = mrb_define_module_under(mrb, i2c, "Constants");
 
